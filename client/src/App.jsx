@@ -12,7 +12,7 @@ function App() {
   const [Income, setIncome] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:4000/get-expenses")
+    fetch(`${import.meta.env.VITE_API_URL}/get-expenses`)
       .then((res) => res.json())
       .then((data) => {
         setTransaction(data);
