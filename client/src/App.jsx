@@ -20,16 +20,21 @@ function App() {
         setIncome(0);
         setExpense(0);
         data.forEach((element) => {
-          if (element.Amount > 0) setIncome((prev) => prev + element.Amount);
-          else setExpense((prev) => prev + element.Amount);
+          if (element.Amount > 0) {
+            let prev = income;
+            setIncome(prev + element.Amount);
+          } else {
+            let prev = expense;
+            setExpense(prev + element.Amount);
+          }
         });
       });
-  }, [update]);
+  }, [update, income, expense]);
 
   return (
     <div className="flex flex-col gap-10 items-center ">
       <p className="flex text-center m-4 p-2 font-bold text-3xl">
-        <img src={logo} className="h-8 w-8" />
+        <img src={logo} className="h-8 w-8" alt="logo" />
         <span className="text-yellow-400 mr-2">Expense</span> Tracker
       </p>
       <ExpensePanel Income={income} Expense={expense} />
