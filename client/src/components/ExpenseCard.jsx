@@ -1,7 +1,7 @@
 import MaterialIcon from "material-icons-react";
 
 // eslint-disable-next-line react/prop-types
-const ExpenseCard = ({ Title, Amount, id, updateCards }) => {
+const ExpenseCard = ({ Title, Amount, id, updateCards, setEditItem }) => {
   const deleteItem = () => {
     fetch(`${import.meta.env.VITE_API_URL}/delete-expense/${id}`, {
       method: "DELETE",
@@ -11,6 +11,10 @@ const ExpenseCard = ({ Title, Amount, id, updateCards }) => {
         console.log(data);
         updateCards((prev) => !prev);
       });
+  };
+
+  const EditItem = () => {
+    setEditItem({ id, Title, Amount });
   };
 
   return (
@@ -24,6 +28,9 @@ const ExpenseCard = ({ Title, Amount, id, updateCards }) => {
 
         <p>{Amount}</p>
       </div>
+      <button onClick={EditItem} className="">
+        <MaterialIcon icon="edit" />
+      </button>
       <button onClick={deleteItem} className="">
         <MaterialIcon icon="delete" />
       </button>

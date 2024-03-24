@@ -5,11 +5,12 @@ import logo from "./assets/ExpenseTracker-Logo.svg";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [Transaction, setTransaction] = useState([]);
+  const [transaction, setTransaction] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [editItem, setEditItem] = useState();
 
-  const [Expense, setExpense] = useState(0);
-  const [Income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [income, setIncome] = useState(0);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/get-expenses`)
@@ -31,18 +32,19 @@ function App() {
         <img src={logo} className="h-8 w-8" />
         <span className="text-yellow-400 mr-2">Expense</span> Tracker
       </p>
-      <ExpensePanel Income={Income} Expense={Expense} />
-      <AddExpense updateCards={setUpdate} />
+      <ExpensePanel Income={income} Expense={expense} />
+      <AddExpense updateCards={setUpdate} ItemToEdit={editItem} />
       <div className="flex flex-col mb-6">
         <p className="font-semibold text-xl mb-2">Transaction History</p>
-        {Transaction.map((item, i) => {
+        {transaction.map((item) => {
           return (
             <ExpenseCard
-              key={i}
+              key={item._id}
               id={item._id}
               Title={item.Title}
               Amount={item.Amount}
               updateCards={setUpdate}
+              setEditItem={setEditItem}
             />
           );
         })}
